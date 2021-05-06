@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+if [ "$(hostname)" = "node-1" ]; then
+  rabbitmq-server &
+  sleep 30 && rabbitmqctl set_policy ha "." '{"ha-mode":"all"}'
+  tail -f /etc/sysctl.conf
+
+else
+  rabbitmq-server &
+  sleep 40
+  rabbitmqctl stop_app
+
+  rabbitmqctl join_cluster rabbit@node-1
+
+  rabbitmqctl start_app
+
+tail -f /etc/sysctl.conf
+fi
