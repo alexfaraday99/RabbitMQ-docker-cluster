@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+     rabbitmq1:
+        image: my/rabbitmq-cluster
+        hostname: node-1
+        ports:
+            - "4369:4369"
+            - "5672:5672"
+            - "15672:15672"
+            - "25672:25672"
+            - "35197:35197"
+        environment:
+            - RABBITMQ_ERLANG_COOKIE=pechenka
+
+        volumes:
+            - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+
+     rabbitmq2:
+        image: my/rabbitmq-cluster
+        hostname: node-2
+        ports:
+            - "4370:4369"
+            - "5673:5672"
+            - "15673:15672"
+            - "25673:25672"
+            - "35198:35197"
+        environment:
+            - RABBITMQ_ERLANG_COOKIE=pechenka
+
+     rabbitmq3:
+        image: my/rabbitmq-cluster
+        hostname: node-3
+        ports:
+            - "4371:4369"
+            - "5674:5672"
+            - "15674:15672"
+            - "25674:25672"
+            - "35199:35197"
+        environment:
+            - RABBITMQ_ERLANG_COOKIE=pechenka
